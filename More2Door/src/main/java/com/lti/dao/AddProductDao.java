@@ -16,4 +16,7 @@ private EntityManager entityManager;
 public void productAdd(Product product) {
 	entityManager.merge(product);
 }
+public void searchProduct() {
+	
+}
 }

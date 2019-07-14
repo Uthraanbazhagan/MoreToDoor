@@ -36,7 +36,7 @@ public class AddProductController {
 	product.setProdPrice(productDTO.getProdPrice());
 	//product.setCategory(productDTO.getCatid());
 	product.setProdLupdate(productDTO.getProdLupdate());
-	
+	System.out.println("remove after changes");
    dao.productAdd(product);
    return "dummy.html";
 	
