@@ -3,17 +3,44 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<script>
+$(function(){
+	$("#form").submit(function(evt){
+		evt.preventDefault();
+		var obj = {
+				prodBrand :$("#prodBrand").val(),
+				prodDesc:$("#prodDesc").val(),
+				prodQty:$("#prodQty").val(),
+				prodCategory: $("#prodCategory").val(),
+				prodPrice: $("#prodPrice").val(),
+				prodLupdate: $("#prodLupdate").val(),
+				prodPicFilename:$("#prodPicFilename").val()
+			}
+		alert(JSON.stringyfy(obj));
+		$.ajax({
+			url : '/addproduct',//the url we wan tto hit
+			method : 'POST', // Get or post or any other method of Http
+			data:JSON.stringify(obj), // what are we expecting back from the se
+			contentType :'application/json',
+			success : function(response) {
+				alert(JSON.stringify(response));
+				
+			}
+		})
+	})
+})
+</script>
 </head>
 <body>
 Enter details about the Product:
-<form method="post" action="addproduct.lti" enctype="multipart/form-data">
-Brand: <input type="text" name="prodBrand" /><br/>
-Description: <input type="textarea" name="prodDesc "/><br/>
-Quantity:<input type="number" name="prodQty" /><br />
-CategoryID:<input type="number" name="prodCategory" /><br />
-Price:<input type="number" name="prodPrice" /><br />
-Last Update:<input tye="date" name="prodLupdate" /><br />
-Upload the Product Picture:<input type="file"  name="prodPicFilenme"/><br />
+<form id="form" method="post" action="addproduct.lti" enctype="multipart/form-data">
+Brand: <input type="text" name="prodBrand" id="prodBrand" /><br/>
+Description: <input type="textarea" name="prodDesc" id="prodDesc"/><br/>
+Quantity:<input type="number" name="prodQty" id="prodQty" /><br />
+CategoryID:<input type="number" name="prodCategory" id="prodCategory" /><br />
+Price:<input type="number" name="prodPrice" id="prodPrice"  /><br />
+Last Update:<input tye="date" name="prodLupdate" id="prodLupdate"/><br />
+Upload the Product Picture:<input type="file"  name="prodPicFilename" id="prodPicFilename"/><br />
 <button type="submit">Add Product</button>
 </form>
 </body>

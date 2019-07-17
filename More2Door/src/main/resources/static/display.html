@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script>
+
+function loadMyData() {
+		$.ajax({
+			url : "/products",//the url we wan tto hit
+			type:"POST",
+			data:"{}",
+			contentType: "application/json; charset=utf-8",
+		    dataType: "json",
+			success : function(response) {
+				alert('success');
+				 alert(JSON.stringify(response));
+	                $.each(response, function(index,products) {
+	                    var row = $("<tr/>");
+	                    var col1 = $("<td/>").text(products.prodId);
+	                    var col2 = $("<td/>").text(products.prodBrand);
+	                    var col3 = $("<td/>").text(products.prodDesc);
+	                    var col4 = $("<td/>").text(products.prodQty)
+	                    var col5 = $("<td/>").text(products.prodPrice);
+	                    var col6 = $("<td/>").text(products.prodPicFilename);
+	                    var col7 = $("<td/>").text(products.prodCategory);
+	                    var col8 = $("<td/>").text(products.prodLupdate);
+	                    row.append(col1);
+	                    row.append(col2);
+	                    row.append(col3);
+	                    row.append(col4);
+	                    row.append(col5);
+	                    row.append(col6);
+	                    row.append(col7);
+	                    row.append(col8);
+	                    $("#display").append(row);
+	                })
+				
+			}
+			
+		})
+	})
+
+	
+
+</script>
+</head>
+<body>
+<div id="display"  onload="loadMyData();>
+ 
+</div>
+</body>
+</html>

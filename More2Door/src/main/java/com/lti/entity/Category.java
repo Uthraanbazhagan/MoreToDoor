@@ -1,6 +1,6 @@
 package com.lti.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,10 +16,13 @@ public class Category {
 	@GeneratedValue
 	@Column(name="CAT_ID")
 	private int catId;
+	
 	@Column(name="CAT_NAME")
 	private String catName;
+	
 	@Column(name="CAT_LUPDATE")
 	private Date catLupdate;
+	
 	public int getCatId() {
 		return catId;
 	}

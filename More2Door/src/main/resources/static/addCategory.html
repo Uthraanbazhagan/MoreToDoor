@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>add category</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
+<script>
+$(function(){
+	//var q = sessionStorage.getItem('question');
+	
+	$("#form").submit(function(evt){
+		evt.preventDefault();
+		var obj = {
+				catName : $("#category").val(),
+		}
+		//var url="http://localhost:9090/register";
+		$.ajax({
+			url : '/addcategory',//the url we wan tto hit
+			method : 'POST', // Get or post or any other method of Http
+			data: JSON.stringify(obj), // what are we expecting back from the se
+			contentType :'application/json',
+			success : function(response) {
+				//sessionStorage.setItem('question', response);
+				
+				//$.each(index,element,)
+				alert(JSON.stringify(response));
+				
+			}
+		})
+	})
+})
+</script>
+
+
+</head>
+<body>
+<form id="form">
+Enter the category:<input type="text" id="category" /><br/>
+<button type="submit">Add Category</button>
+</form>
+</body>
+</html>

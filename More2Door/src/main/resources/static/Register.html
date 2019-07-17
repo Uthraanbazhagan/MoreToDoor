@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+	rel="stylesheet">
+<title>Registration Form</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="Register.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+$(function(){
+	$("#form").submit(function(evt) {
+		evt.preventDefault();
+		var obj ={
+				firstname : $("#first_name").val(),
+				lastname : $("#last_name").val(),
+				role : $("#role").val(),
+				email : $("#email").val(),
+			    password : $("#confirm_password").val(),
+				phone : $("#phonenumber").val(),
+				address : $("#address").val(),
+			    city : $("#city").val(),
+			    pincode : parseInt($("#pincode").val())
+				
+		}
+		
+		$.ajax({
+                url: '/register',
+                method : 'POST',
+                data : JSON.stringify(obj),
+                contentType : 'application/json',
+				success : function(response) {
+         	      	alert(JSON.stringify(response));
+}
+		})
+	})
+})
+</script>
+</head>
+<body>
+	<div class="signup-form">
+		<form id="form">
+			<h2>Register</h2>
+			<p class="hint-text">Create your account and connect with us</p>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-xs-6">
+						<input type="text" id="first_name" class="form-control"
+							name="first_name" placeholder="First Name" required="required">
+					</div>
+					<div class="col-xs-6">
+						<input type="text" id="last_name" class="form-control"
+							name="last_name" placeholder="Last Name" required="required">
+					</div>
+				</div>
+
+
+			</div>
+			<div class="row">
+				<div class="form-group">
+					<select id="role">
+						<option value="Admin">ADMIN</option>
+						<option value="User">USER</option>
+						<option value="Retailer">RETAILER</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<input type="email" id="email" class="form-control" name="email"
+					placeholder="Email" required="required">
+			</div>
+			<div class="form-group">
+				<input type="password" id="password" class="form-control"
+					name="password" placeholder="Password" required="required">
+			</div>
+			<div class="form-group">
+				<input type="password" id="confirm_password" class="form-control"
+					name="confirm_password" placeholder="Confirm Password"
+					required="required">
+			</div>
+
+			<div class="form-group">
+				<input type="text" id="phonenumber" class="form-control"
+					name="phone number" placeholder="Enter your number"
+					required="required">
+			</div>
+			<div class="form-group">
+				<textarea rows="3" cols="60.2" id="address" class="form-control"
+					name="address" placeholder="Enter your address" required="required"></textarea>
+			</div>
+			<div class="form-group">
+				<input type="text" id="city" class="form-control" name="city"
+					placeholder="Enter your city" required="required">
+			</div>
+			<div class="form-group">
+				<input type="text" id="pincode" class="form-control" name="pincode"
+					placeholder="Enter your pincode" required="required">
+			</div>
+			<div class="form-group">
+				<label class="checkbox-inline"><input type="checkbox"
+					required="required"> I accept the <a href="#">Terms of
+						Use</a> &amp; <a href="#">Privacy Policy</a></label>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-success btn-lg btn-block">Register
+					Now</button>
+			</div>
+		</form>
+		<div class="text-center">
+			Already have an account? <a href="#">Sign in</a>
+		</div>
+	</div>
+</body>
+</html>

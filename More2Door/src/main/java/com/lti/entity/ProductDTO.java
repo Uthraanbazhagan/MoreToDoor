@@ -12,7 +12,7 @@ public class ProductDTO {
 	private int prodQty;
 	private double prodPrice;
 	
-	private int catid;
+	private int prodCategory;
 	private Date prodLupdate;
 	public Date getProdLupdate() {
 		return prodLupdate;
@@ -50,19 +50,19 @@ public class ProductDTO {
 	public void setProdPrice(double prodPrice) {
 		this.prodPrice = prodPrice;
 	}
-	public int getCatid() {
-		return catid;
-	}
-	public void setCatid(int catid) {
-		this.catid = catid;
-	}
-	public MultipartFile getProductPic() {
+		public MultipartFile getProductPic() {
 		return productPic;
 	}
 	public void setProductPic(MultipartFile productPic) {
 		this.productPic = productPic;
 	}
 	private MultipartFile productPic;
+	public int getProdCategory() {
+		return prodCategory;
+	}
+	public void setProdCategory(int prodCategory) {
+		this.prodCategory = prodCategory;
+	}
 	
 
 }

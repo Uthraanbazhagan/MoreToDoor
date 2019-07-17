@@ -16,7 +16,7 @@ public class Product {
 @Id
 @Column(name="PROD_ID")
 @GeneratedValue
-private String prodId;
+private int prodId;
 @Column(name="PROD_BRAND")
 private String prodBrand;
 @Column(name="PROD_DESC")
@@ -25,9 +25,14 @@ private String prodDesc;
 private int prodQty;
 @Column(name="PROD_PRICE")
 private double prodPrice;
+@Column(name="PROD_PIC_FILENAME")
 private String prodPicFilename;
-@Column(name="CAT_ID")
-private int catId;
+@Column(name="PROD_CATEGORY")
+private int prodCategory;
+
+public void setProdPicFilename(String prodPicFilename) {
+	this.prodPicFilename = prodPicFilename;
+}
 
 public String getProdPicFilename() {
 	return prodPicFilename;
@@ -37,11 +42,11 @@ public void setProdPicFilenme(String prodPicFilename) {
 	this.prodPicFilename = prodPicFilename;
 }
 
-public String getProdId() {
+public int getProdId() {
 	return prodId;
 }
 
-public void setProdId(String prodId) {
+public void setProdId(int prodId) {
 	this.prodId = prodId;
 }
 
