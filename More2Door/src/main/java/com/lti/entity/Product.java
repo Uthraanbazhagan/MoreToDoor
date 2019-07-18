@@ -30,6 +30,8 @@ private String prodPicFilename;
 @Column(name="PROD_CATEGORY")
 private int prodCategory;
 
+
+
 public void setProdPicFilename(String prodPicFilename) {
 	this.prodPicFilename = prodPicFilename;
 }

@@ -1,9 +1,18 @@
 package com.lti.entity;
 
-	import javax.persistence.Column;
+	import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 	import javax.persistence.Entity;
-	import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+	import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 	import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 	@Entity
 	@Table(name="TBL_CART")
@@ -12,29 +21,37 @@ package com.lti.entity;
 		@Id
 		@Column(name="CART_ID")
 		private int cartId;
-		@Column(name="CUST_ID")
-		private int custId;
-		@Column(name="PROD_ID")
-		private String prodId;
+		
+		@ManyToOne(fetch = FetchType.LAZY)
+		@JoinColumn(name = "USER_ID")
+		@JsonIgnore
+		private User user;
+		
+		@ManyToOne
+		@JoinColumn(name="PROD_ID")
+		private Product product;
+		
 		@Column(name="CART_QTY")
 		private int qty;
+		
 		public int getCartId() {
 			return cartId;
 		}
 		public void setCartId(int cartId) {
 			this.cartId = cartId;
 		}
-		public int getCustId() {
-			return custId;
+		
+		public User getUser() {
+			return user;
 		}
-		public void setCustId(int custId) {
-			this.custId = custId;
+		public void setUser(User user) {
+			this.user = user;
 		}
-		public String getProdId() {
-			return prodId;
+		public Product getProduct() {
+			return product;
 		}
-		public void setProdId(String prodId) {
-			this.prodId = prodId;
+		public void setProduct(Product product) {
+			this.product = product;
 		}
 		public int getQty() {
 			return qty;

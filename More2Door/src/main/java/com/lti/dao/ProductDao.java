@@ -7,21 +7,25 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.lti.entity.Product;
 
 
-@Component("product")
+@Repository
 public class ProductDao {
-@PersistenceContext
-private EntityManager entityManager;
-@Transactional
-public void productAdd(Product product) {
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	@Transactional
+	public void productAdd(Product product) {
 	entityManager.merge(product);
 	System.out.println("inserted succesfully");
-}
-public List<Product> fetchall(){
-	List<Product> productList = entityManager.createQuery("SELECT productDetails from Product as productDetails").getResultList();
-	return productList;
-}
+	}
+
+	public List<Product> fetchall(){
+		List<Product> productList = entityManager.createQuery("SELECT productDetails from Product as productDetails").getResultList();
+		return productList;
+	}
 }

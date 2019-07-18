@@ -52,8 +52,6 @@ public class More2DoorApplicationTests {
 		List<MyCart> myCart= service.add();
 		for(MyCart mc: myCart) {
 			System.out.println(mc.getCartId());
-			System.out.println(mc.getCustId());
-			System.out.println(mc.getProdId());
 			System.out.println(mc.getQty());
 			
 			

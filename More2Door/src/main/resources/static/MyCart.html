@@ -2,10 +2,66 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>More2Door:Shopping Cart</title>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script> 
+<script>
+$(function() {
+$.ajax({
+			url : "/myCart",
+			type:"POST",
+			data:"{}",
+			contentType: "application/json; charset=utf-8",
+		    dataType: "json",
+			success : function(response) {
+				    $.each(response, function(index,products) {
+				    	alert(JSON.stringify(products));
+				    	 var row = $("<tr/>");
+	                	  var col1 = $("<td/>");
+	                	  var img = $("<img/>")
+	                	  						.attr("src", "uploads/" + products.product.prodPicFilename);
+	                	  						
+	                	  col1.append(img);
+	                	  var col2=$("<b/>");
+	                	  var bold = $("<td/>").text(products.product.prodBrand);
+	                	  col2.append(bold);
+	                	  var col3 = $("<td/>").text(products.product.prodDesc);
+	                	  var col4=$("<td/>").text("$");
+	                	  var price = $("<p/>").text(products.product.prodPrice);
+						 col4.append(price);
+						 var col5=$("<td/>");
+						 var qty=$("<input/>").attr({
+							    type:"number", 
+							    value:products.qty
+							});
+						 col5.append(qty);
+						 var col6=$("<button/>").text("Delete");
+	                	  
+						 row.append(col1);
+		                    row.append(col2);
+		                    row.append(col3);
+		                    row.append(col4);
+		                    row.append(col5);
+		                    row.append(col6);
+		                    $("#tbl").append(row);
+		                   
+	                })
+				
+			}
+			
+		})
+	})
+
+	
+
+</script>
+
 </head>
 <body>
-<button>delete</button>
-<button>delete</button>
+<table id="tbl" style="border : 1px solid black;">
+<tr style="border : 1px solid black;">
+
+</tr>
+</table>
+
 </body>
 </html>
