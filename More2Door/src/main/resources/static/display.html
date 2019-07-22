@@ -15,7 +15,9 @@ $.ajax({
 			contentType: "application/json; charset=utf-8",
 		    dataType: "json",
 			success : function(response) {
+				$("#tbl").empty();
 				    $.each(response, function(index,products) {
+				    	alert(JSON.stringify(response));
 	                	  var row = $("<tr/>");
 	                	  var col1 = $("<td/>");
 	                	  var img = $("<img/>")
@@ -50,7 +52,7 @@ $.ajax({
 </script>
 </head>
 <body>
-<table id="tbl" style="border : 1px solid black;">
+<table id="tbl" >
 <tr style="border : 1px solid black;">
 
 </tr>

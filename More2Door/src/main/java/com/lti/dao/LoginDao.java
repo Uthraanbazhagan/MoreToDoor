@@ -14,14 +14,16 @@ import com.lti.entity.UserDTO;
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	public UserDTO fetchByEmail(UserDTO userDTO) {	
+	public User fetchByEmail(UserDTO userDTO) {
+		MyCartDao dao=new MyCartDao();
 	Query q = entityManager.createQuery("select a from User as a where a.email=:em");
 	q.setParameter("em", userDTO.getEmail());
 	User udto=(User)q.getSingleResult();
 	if(udto.getPassword().equals(userDTO.getPassword()))
-		return userDTO;
+		return udto;
 	else
 		return null;
+	
 	}
 
 

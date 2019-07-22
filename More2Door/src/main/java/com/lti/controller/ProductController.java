@@ -31,7 +31,7 @@ import com.lti.entity.Product;
 			List<Product> list=dao.fetchall();
 
 			for(Product product : list) {
-				Path srcfile = Paths.get("D:/more2doorimg/"+product.getProdPicFilename());
+				Path srcfile = Paths.get("d:/more2doorimg/"+product.getProdPicFilename());
 				Path destfile = Paths.get("src/main/resources/static/uploads/" + product.getProdPicFilename());
 				try {
 					Files.copy(srcfile, destfile, StandardCopyOption.REPLACE_EXISTING);

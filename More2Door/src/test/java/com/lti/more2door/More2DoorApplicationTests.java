@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.lti.dao.ProductDao;
 import com.lti.entity.MyCart;
 import com.lti.entity.Product;
-import com.lti.service.MyCartService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -24,9 +23,6 @@ import com.lti.service.MyCartService;
 public class More2DoorApplicationTests {
 	@Autowired
 	  ProductDao dao;
-
-	@Autowired
-	MyCartService service;
 	
 	
 	@Test
@@ -47,18 +43,9 @@ public class More2DoorApplicationTests {
 		}	
 	}
 	
-	@Test
-	public void fetchMyCart() {
-		List<MyCart> myCart= service.add();
-		for(MyCart mc: myCart) {
-			System.out.println(mc.getCartId());
-			System.out.println(mc.getQty());
-			
-			
-		}
 		
 	}
 
 
 
-}
+

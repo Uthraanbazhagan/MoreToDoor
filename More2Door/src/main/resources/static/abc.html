@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script> 
+<script>
+$(function() {
+	$("form").submit(function(evt) {
+		evt.preventDefault();
+		
+		var v = $( 'input[name=gender]:checked' ).val();
+		alert(v);
+	})
+})
+</script>
+</head>
+<body>
+<form>
+<input type="radio" name="gender" value="Male">Male
+<input type="radio" name="gender" value="Female">Female
+<button type="submit">OK</button>
+</form>
+</body>
+</html>

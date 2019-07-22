@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>MOOR 2 DOOR</title>
+<link rel="stylesheet"  href="Home.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script>
+var input = document.getElementById("search");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode == 13) {
+   event.preventDefault();
+   document.getElementById("btn").click();
+  }
+  
+});
+
+</script>
+<script>
+
+$(function() {
+$.ajax({
+			url : "/products",
+			type:"POST",
+			data:"{}",
+			contentType: "application/json; charset=utf-8",
+		    dataType: "json",
+			success : function(response) {
+				$("#tbl").empty();
+				    $.each(response, function(index,products) {
+				    	  var row = $("<tr/>");
+	                	  var col1 = $("<td/>");
+	                	  var img = $("<img/>")
+	                	  						.attr("src", "uploads/" + products.prodPicFilename);
+	                	  						
+	                	  col1.append(img);
+	                	  var col2=$("<b/>");
+	                	  var bold = $("<td/>").text(products.prodBrand);
+	                	  col2.append(bold);
+	                	  var col3 = $("<td/>").text(products.prodDesc);
+	                	  var col4=$("<td/>").text("$");
+	                	  var price = $("<p/>").text(products.prodPrice);
+						 col4.append(price);
+	                	  var col5=$("<button/>").text("Buy Now");
+	                	  var col6=$("<button/>").text("Add to Cart");
+	                	    row.append(col1);
+		                    row.append(col2);
+		                    row.append(col3);
+		                    row.append(col4);
+		                    row.append(col5);
+		                    row.append(col6);
+	                    $("#tbl").append(row);
+	                })
+				
+			}
+			
+		})
+	})
+
+	
+
+</script>
+
+<script>
+$(function(){
+	//var q = sessionStorage.getItem('question');
+	
+	$("#btn").click(function(evt){
+		evt.preventDefault();
+		var obj = {
+				prodDesc:$("#search").val()
+		                }
+		//var url="http://localhost:9090/register";
+		$.ajax({
+			url : '/search',//the url we wan tto hit
+			method : 'POST', // Get or post or any other method of Http
+			data: JSON.stringify(obj), // what are we expecting back from the se
+			contentType :'application/json',
+			success : function(response) {
+				//sessionStorage.setItem('question', response);
+				//$.each(index,element,)
+					$("#tbl").empty();
+				   $.each(response, function(index,products) {
+
+				       //  alert(JSON.stringify(response));
+	                	  var row = $("<tr/>");
+	                	  var col1 = $("<td/>");
+	                	  var img = $("<img/>")
+	                	  						.attr("src", "uploads/" + products.prodPicFilename);
+	                	  						
+	                	  col1.append(img);
+	                	  var col2=$("<b/>");
+	                	  var bold = $("<td/>").text(products.prodBrand);
+	                	  col2.append(bold);
+	                	  var col3 = $("<td/>").text(products.prodDesc);
+	                	  var col4=$("<td/>").text("$");
+	                	  var price = $("<p/>").text(products.prodPrice);
+						 col4.append(price);
+	                	  var col5=$("<button/>").text("Buy Now");
+	                	  var col6=$("<button/>").text("Add to Cart");
+	                	    row.append(col1);
+		                    row.append(col2);
+		                    row.append(col3);
+		                    row.append(col4);
+		                    row.append(col5);
+		                    row.append(col6);
+		                    $("#tbl").append(row);
+
+				   })//foreach
+					
+			}//success
+			
+		})//ajax
+	})//end of button
+})//end of func
+
+
+</script>
+</head>
+<body>
+<form>
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <div class="dropdown">
+  <button class="dropbtn">Categories</button>
+  <div class="dropdown-content">
+  <a href="#">Smart Phones</a>
+  <a href="#">Laptops</a><br/>
+  <a href="#">TV's</a>
+    <a href="#">Accessories</a>
+  </div>
+</div>
+  <a href="#contact">About Us</a>
+   <a style="float:right"  href="#contact">Wishlist</a>
+   <a class="cart" style="float:right" href="MyCart.html"><img src="C:\Users\vshadmin\git\repository\More2Door\src\main\resources\static\cart.png"></a>
+   <a style="float:right"  href="Login.html">Login</a>
+   <input type="text" class="searchh" placeholder="Search here" name="search">
+   <input type="text" class="searchh" placeholder="Search here" id="search" >
+   <input type="image" src="btn.png" alt="Submit" width="40" height="40" id="btn" >
+    
+  </div>
+    </form>
+<table id="tbl" style="border : 1px solid black;">
+<tr style="border : 1px solid black;">
+
+</tr>
+</table>
+
+</body>
+</html>

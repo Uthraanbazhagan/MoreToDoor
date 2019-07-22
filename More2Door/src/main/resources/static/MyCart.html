@@ -3,19 +3,42 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>More2Door:Shopping Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="index.css">
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script> 
 <script>
+$( document ).ready(function() {
+    if(sessionStorage.getItem("userId")==null){
+    	
+    }
+    else
+        var name=sessionStorage.getItem("firstname");
+	$("#log").html(name);
+	$("#orderhistory").html("Orders");
+	$("#logout").html("Logout");
+	
+
+
+});
 $(function() {
+	var userId=sessionStorage.getItem("userId");
+	var obj = {
+			userId:userId
+			}
+
+
 $.ajax({
 			url : "/myCart",
 			type:"POST",
-			data:"{}",
+			data:JSON.stringify(obj),
 			contentType: "application/json; charset=utf-8",
 		    dataType: "json",
 			success : function(response) {
 				    $.each(response, function(index,products) {
-				    	alert(JSON.stringify(products));
-				    	 var row = $("<tr/>");
+				   		  var row = $("<tr/>");
 	                	  var col1 = $("<td/>");
 	                	  var img = $("<img/>")
 	                	  						.attr("src", "uploads/" + products.product.prodPicFilename);
@@ -29,39 +52,189 @@ $.ajax({
 	                	  var price = $("<p/>").text(products.product.prodPrice);
 						 col4.append(price);
 						 var col5=$("<td/>");
-						 var qty=$("<input/>").attr({
-							    type:"number", 
-							    value:products.qty
-							});
-						 col5.append(qty);
-						 var col6=$("<button/>").text("Delete");
-	                	  
-						 row.append(col1);
+						  col5.append('<input type="number" id="qty" value="'+products.qty+'">');
+						   
+						 	row.append(col1);
 		                    row.append(col2);
 		                    row.append(col3);
 		                    row.append(col4);
 		                    row.append(col5);
-		                    row.append(col6);
+		                   	row.append('<button type="button" data-pid="'+products.cartId+'" class="updbtn">Update</button><br/>');
+		                   	row.append('<button type="button" data-pid="'+products.cartId+'" class="delbtn">Delete</button>');
+		                    
 		                    $("#tbl").append(row);
-		                   
-	                })
-				
-			}
+		                    
+		                    sessionStorage.setItem("qty",products.qty);
+		                    sessionStorage.setItem("price",products.product.prodPrice);
+	                }) //closing of foreach
+			
+			} //closing of success
+			
+			
+		}) //closing of .ajax
+		$(document).on("click", "button.updbtn" , function() {
+			alert("updated");
+			var cartId = $(this).attr('data-pid');
+			var userId=sessionStorage.getItem("userId");
+			var obj = {
+					qty:$("#qty").val(),
+					cartId:cartId,
+					userId:userId
+			                }
+			sessionStorage.setItem("qty",qty);
+			$.ajax({
+				url : "/myCartUpdate",
+				type:"POST",
+				data:JSON.stringify(obj),
+				contentType: "application/json; charset=utf-8",
+			    dataType: "json",
+				success : function(response) {
+					$("#tbl").empty();
+					 $.each(response, function(index,products) {
+				    	 
+						 var row = $("<tr/>");
+		                	  var col1 = $("<td/>");
+		                	  var img = $("<img/>")
+		                	  						.attr("src", "uploads/" + products.product.prodPicFilename);
+		                	  						
+		                	  col1.append(img);
+		                	  var col2=$("<b/>");
+		                	  var bold = $("<td/>").text(products.product.prodBrand);
+		                	  col2.append(bold);
+		                	  var col3 = $("<td/>").text(products.product.prodDesc);
+		                	  var col4=$("<td/>").text("$");
+		                	  var price = $("<p/>").text(products.product.prodPrice);
+							 col4.append(price);
+							 var col5=$("<td/>");
+							  col5.append('<input type="number" id="qty" value="'+products.qty+'">');
+							   
+							 	row.append(col1);
+			                    row.append(col2);
+			                    row.append(col3);
+			                    row.append(col4);
+			                    row.append(col5);
+			                   	row.append('<button type="button" data-pid="'+products.cartId+'" class="updbtn">Update</button><br/>');
+			                   	row.append('<button type="button" data-pid="'+products.cartId+'" class="delbtn">Delete</button>');
+			                    
+			                    $("#tbl").append(row);
+			                   
+		                }) //closing of foreach
+					
+							
+				}//success
+		})   //ajax
+		})
+		$(document).on("click", "button.delbtn" , function() {
+			alert("deleted");
+			var cartId = $(this).attr('data-pid');
+			var userId=sessionStorage.getItem("userId");
+			var obj = {
+					cartId:cartId,
+					userId:userId
+			                }
+			
+			$.ajax({
+				url : "/myCartDelete",
+				type:"POST",
+				data:JSON.stringify(obj),
+				contentType: "application/json; charset=utf-8",
+			    dataType: "json",
+				success : function(response) {
+					$("#tbl").empty();
+					 $.each(response, function(index,products) {
+				    	 
+						 var row = $("<tr/>");
+		                	  var col1 = $("<td/>");
+		                	  var img = $("<img/>")
+		                	  						.attr("src", "uploads/" + products.product.prodPicFilename);
+		                	  						
+		                	  col1.append(img);
+		                	  var col2=$("<b/>");
+		                	  var bold = $("<td/>").text(products.product.prodBrand);
+		                	  col2.append(bold);
+		                	  var col3 = $("<td/>").text(products.product.prodDesc);
+		                	  var col4=$("<td/>").text("$");
+		                	  var price = $("<p/>").text(products.product.prodPrice);
+							 col4.append(price);
+							 var col5=$("<td/>");
+							  col5.append('<input type="number" id="qty" value="'+products.qty+'">');
+							   
+							 	row.append(col1);
+			                    row.append(col2);
+			                    row.append(col3);
+			                    row.append(col4);
+			                    row.append(col5);
+			                   	row.append('<button type="button" data-pid="'+products.cartId+'" class="updbtn">Update</button><br/>');
+			                   	row.append('<button type="button" data-pid="'+products.cartId+'" class="delbtn">Delete</button>');
+			                    
+			                    $("#tbl").append(row);
+			                   
+		                }) //closing of foreach
+					
+							
+				}//success
+		})
 			
 		})
-	})
+		
+		
 
+		
+		
+	})//closing of main function
 	
+	
+	
+</script>
+<script>
+
+$(document).ready(function(){
+  $("#checkout").click(function(){
+		
+  });
+});
 
 </script>
-
 </head>
 <body>
-<table id="tbl" style="border : 1px solid black;">
-<tr style="border : 1px solid black;">
+<nav class="navbar my-navbar">
+ <div class="container-fluid">
+  <div class="navbar-header">
+      <a class="nav navbar-brand" href="index.html">MORE TO DOOR</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="AboutUs.html">About Us</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a  id="phone" href="#">Smart Phones</a></li>
+          <li><a  href="#">Tablets</a></li>
+          <li><a  href="#">Laptops</a></li>
+          <li><a  href="#">Accessories</a></li>
+        </ul>
+      </li>
+      </ul>
+       <form class="navbar-form navbar-left" action="/action_page.php">
+      <div class="form-group">
+        <input type="text" class="form-control"  style="width:450px"placeholder="Search..." name="search" id="search"> 
+      </div>
+      <button type="submit" ><span class="glyphicon glyphicon-search" style="height:23px;" id="btn"></span></button>
+    </form>
+       <ul class="nav navbar-nav navbar-right">
+      <li><a id="log" href="Login.html"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+      <li><a href="MyCart.html"><span class="glyphicon glyphicon-shopping-cart" style="font-size:18px; color:Steelblue"></span> Cart</a></li>
+    
+    </ul>
+ </div>
+</nav>
 
+<table id="tbl" >
+<tr style="border : 1px solid black;">
+       
+    
 </tr>
 </table>
-
+<form action="checkout.html">
+ <button type="submit" id="checkout" class="btn btn-success btn-sm btn-block pull=right" style="width:160px">Checkout</button>
+</form>
 </body>
 </html>

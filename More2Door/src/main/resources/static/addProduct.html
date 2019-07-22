@@ -3,43 +3,52 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
 $(function(){
 	$("#form").submit(function(evt){
+		
 		evt.preventDefault();
-		var obj = {
-				prodBrand :$("#prodBrand").val(),
-				prodDesc:$("#prodDesc").val(),
-				prodQty:$("#prodQty").val(),
-				prodCategory: $("#prodCategory").val(),
-				prodPrice: $("#prodPrice").val(),
-				prodLupdate: $("#prodLupdate").val(),
-				prodPicFilename:$("#prodPicFilename").val()
-			}
-		alert(JSON.stringyfy(obj));
+		
+		formdata = new FormData();
+		formdata.append("prodBrand",$("#prodBrand").val());
+		formdata.append("prodDesc", $("#prodDesc").val());
+		formdata.append("prodQty",$("#prodQty").val());
+		formdata.append("prodCategory",$("#prodCategory").val());
+		formdata.append("prodPrice",$("#prodPrice").val());
+		formdata.append("productPic", $("#prodPicFilename").get(0).files[0]);
 		$.ajax({
-			url : '/addproduct',//the url we wan tto hit
-			method : 'POST', // Get or post or any other method of Http
-			data:JSON.stringify(obj), // what are we expecting back from the se
-			contentType :'application/json',
-			success : function(response) {
+			url         : '/addproduct', 
+			method      : 'POST', 
+			data 	    : formdata,
+			//data		: JSON.stringify(obj),
+			//contentType	: 'application/json',
+			//contentType : 'application/x-www-form-urlencoded',
+			//contentType: 'multipart/form-data',
+			processData: false,
+			contentType : false,
+			success: function(response){
+				
 				alert(JSON.stringify(response));
 				
 			}
+			
 		})
+		
 	})
 })
+
+
 </script>
 </head>
 <body>
 Enter details about the Product:
-<form id="form" method="post" action="addproduct.lti" enctype="multipart/form-data">
+<form id="form" >
 Brand: <input type="text" name="prodBrand" id="prodBrand" /><br/>
 Description: <input type="textarea" name="prodDesc" id="prodDesc"/><br/>
 Quantity:<input type="number" name="prodQty" id="prodQty" /><br />
 CategoryID:<input type="number" name="prodCategory" id="prodCategory" /><br />
 Price:<input type="number" name="prodPrice" id="prodPrice"  /><br />
-Last Update:<input tye="date" name="prodLupdate" id="prodLupdate"/><br />
 Upload the Product Picture:<input type="file"  name="prodPicFilename" id="prodPicFilename"/><br />
 <button type="submit">Add Product</button>
 </form>

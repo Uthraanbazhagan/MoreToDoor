@@ -8,6 +8,7 @@ package com.lti.controller;
 
 	import org.springframework.web.bind.annotation.RestController;
 
+import com.lti.entity.User;
 import com.lti.entity.UserDTO;
 import com.lti.service.LoginService;
 
@@ -19,7 +20,7 @@ import com.lti.service.LoginService;
 		private LoginService loginService;
 		
 		@RequestMapping(path="/login", method=RequestMethod.POST)
-		public UserDTO UserValidation(@RequestBody UserDTO userDTO){
+		public User UserValidation(@RequestBody UserDTO userDTO){
 			return loginService.userValid(userDTO);
 		}
 

@@ -1,6 +1,8 @@
 package com.lti.entity;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,11 +15,19 @@ public class ProductDTO {
 	private double prodPrice;
 	
 	private int prodCategory;
-	private Date prodLupdate;
-	public Date getProdLupdate() {
+	private String prodLupdate;
+	private int userId;
+	
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public String getProdLupdate() {
 		return prodLupdate;
 	}
-	public void setProdLupdate(Date prodLupdate) {
+	public void setProdLupdate(String prodLupdate) {
 		this.prodLupdate = prodLupdate;
 	}
 	public int getProdId() {

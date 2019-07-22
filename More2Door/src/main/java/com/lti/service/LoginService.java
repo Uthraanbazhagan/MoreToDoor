@@ -4,6 +4,7 @@ package com.lti.service;
 	import org.springframework.stereotype.Service;
 
 import com.lti.dao.LoginDao;
+import com.lti.entity.User;
 import com.lti.entity.UserDTO;
 
 
@@ -14,7 +15,7 @@ import com.lti.entity.UserDTO;
 		@Autowired
 		private LoginDao loginDao;
 		
-		public UserDTO userValid(UserDTO userDTO){
+		public User userValid(UserDTO userDTO){
 			return loginDao.fetchByEmail(userDTO);
 			
 		}

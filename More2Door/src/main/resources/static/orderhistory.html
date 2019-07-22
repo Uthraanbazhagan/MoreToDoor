@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>More2Door:OrderHistory</title>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script> 
+
+<script>
+$(function() {
+	var userId=sessionStorage.getItem("userId");
+	var obj = {
+			userId:userId
+			}
+$.ajax({
+			url : "/myOrder",
+			type:"POST",
+			data:JSON.stringify(obj),
+			contentType: "application/json; charset=utf-8",
+		    dataType: "json",
+			success : function(response) {
+				    $.each(response, function(index,order) {
+				   
+				   		  var row = $("<tr/>");
+	                	  var col1 = $("<td/>").text(order.orderId);
+	                	  var col2=$("<td/>").text(order.amount);
+	                	  var col3=$("<td/>").text(order.orderDate);
+	            
+						 	row.append(col1);
+		                   	row.append(col2);
+		                   	row.append(col3);
+		                    $("#tbl").append(row);
+		                   
+	                }) //closing of foreach
+				
+			} //closing of success
+			
+			
+		})//ajax
+	
+})//function
+
+</script>
+</head>
+<body>
+<table id="tbl" >
+<tr style="border : 1px solid black;">
+     <th>Order #</th>
+      <th>Amount</th>
+	 <th>Order Placed</th>
+     
+</tr>
+</table>
+</body>
+</html>

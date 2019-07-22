@@ -5,10 +5,10 @@
 <title>More To Door</title>
 <link rel="stylesheet" href="index.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+ <script>
 
 $(function() {
 $.ajax({
@@ -20,16 +20,23 @@ $.ajax({
 			success : function(response) {
 				$("#tbl").empty();
 				    $.each(response, function(index,products) {
-				          var row = $("<tr/>");
+				    //	alert(JSON.stringify(response));  
+				    	var row = $("<tr/>");
+	                	  //var col1 = $("<td/>");
+	                	  //var img = $("<img/>")
+	                	  	//					.attr("src", "uploads/" + products.prodPicFilename);
+	                	  						
+	                	  //col1.append(img);
 	                	  var col2=$("<b/>");
 	                	  var bold = $("<td/>").text(products.prodBrand);
 	                	  col2.append(bold);
 	                	  var col3 = $("<td/>").text(products.prodDesc);
 	                	  var col4=$("<td/>").text("$");
 	                	  var price = $("<p/>").text(products.prodPrice);
-						  col4.append(price);
-	                      
-						    row.append('<img src="uploads/'+products.prodPicFilename+'" height="100px"/>');
+						 	col4.append(price);
+	                	    //row.append(col1);
+		                  	row.append('<img src="uploads/'+products.prodPicFilename+'" height="100px"/>');
+		                  
 		                  	row.append(col2);
 		                    row.append(col3);
 		                    row.append(col4);
@@ -37,11 +44,11 @@ $.ajax({
 		                	row.append('<button type="button" data-pid="'+products.prodId+'" class="cart">To Cart</button><br/>');
 		                	
 	                    $("#tbl").append(row);
-	                }) //end of for-each
+	                })
 				
-			} //end of success
+			}
 			
-		}) //end of ajax
+		})
 		$(document).on("click", "button.cart" , function() {
 			alert('added to cart');
 			var userId=sessionStorage.getItem("userId");
@@ -50,7 +57,7 @@ $.ajax({
 			var obj = {
 					prodId:prodId,
 					userId:userId
-			}
+					}
 			$.ajax({
 				url : "/myCartAdd",
 				type:"POST",
@@ -58,49 +65,62 @@ $.ajax({
 				contentType: "application/json; charset=utf-8",
 			    dataType: "json",
 				success : function(response) {
-								
-				}// end of success
-		})  //end of ajax
-		})// end of add to cart function
+							
+				}//success
+		})  //ajax
+		})//cart function
 		$(document).on("click", "button.buy" , function() {
 			window.location.replace("/checkout.html");
-		}) 
+		})
+	})
+
 	
-	}) // end of outer function
+
 </script>
 
-<script>
-$( document ).ready(function() {
+<script>$( document ).ready(function() {
+	
     if(sessionStorage.getItem("userId")==null){
+    	alert("hi");
     }
-    else{
-    	 var name=sessionStorage.getItem("firstname");
-    	 $("#log").html(name);
-    	 $("#orderhistory").html("Orders");
-    	 $("#logout").html("Logout");
+    /*if((sessionStorage.getItem("role")).equals("Retailer"))
+    	{
+    	alert(sessionStorage.getItem("role"));
+    	$("#seller").html("Seller");
+    	$("#log").html("Logout");
+    	}*/
+    else
+    	{
+     var name=sessionStorage.getItem("firstname");
+    	$("#log").html(name);
+    	$("#orderhistory").html("Orders");
+    	$("#logout").html("Logout");
+    	
     	}
 
-}); // end of after-login
-
-$(document).on("click","#logout",function(){
-	sessionStorage.removeItem("firstname");
-}) //end of after-logout
-
+});
 $(function(){
+	
+	//var q = sessionStorage.getItem('question');
+	
 	$("#btn").click(function(evt){
 		evt.preventDefault();
 		var obj = {
 				prodDesc:$("#search").val()
 		                }
+		//var url="http://localhost:9090/register";
 		$.ajax({
-			url : '/search',//the url we want to hit
+			url : '/search',//the url we wan tto hit
 			method : 'POST', // Get or post or any other method of Http
-			data: JSON.stringify(obj), 
+			data: JSON.stringify(obj), // what are we expecting back from the se
 			contentType :'application/json',
 			success : function(response) {
-				   $("#tbl").empty();
+				//sessionStorage.setItem('question', response);
+				//$.each(index,element,)
+					$("#tbl").empty();
 				   $.each(response, function(index,products) {
 
+				       //  alert(JSON.stringify(response));
 	                	  var row = $("<tr/>");
 	                	  var col1 = $("<td/>");
 	                	  var img = $("<img/>")
@@ -132,46 +152,48 @@ $(function(){
 	})//end of button
 })//end of func
 
-</script>  
+
+</script>
+  
 </head>
 <body>
 <nav class="navbar my-navbar">
  <div class="container-fluid">
-  	<div class="navbar-header">
+  <div class="navbar-header">
       <a class="nav navbar-brand" href="index.html">MORE TO DOOR</a>
     </div>
     <ul class="nav navbar-nav">
-      	<li>
-      	<a href="AboutUs.html">About Us</a>
-      	</li>
-      	<li class="dropdown"><a class="categories" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a>
-        	<ul class="dropdown-menu">
-          		<li><a href="#">Smart Phones</a></li>
-          		<li><a href="#">Tablets</a></li>
-          		<li><a href="#">Laptops</a></li>
-          		<li><a href="#">Accessories</a></li>
-        	</ul>
-      	</li>
-     </ul>
-      <form class="navbar-form navbar-left" action="/action_page.php">
+      <li><a href="AboutUs.html">About Us</a></li>
+      <li class="dropdown"><a class="categories" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Smart Phones</a></li>
+          <li><a href="#">Tablets</a></li>
+          <li><a href="#">Laptops</a></li>
+          <li><a href="#">Accessories</a></li>
+          
+        </ul>
+      </li>
+      </ul>
+       <form class="navbar-form navbar-left" action="/action_page.php">
       <div class="form-group">
         <input type="text" class="form-control"  style="width:450px"placeholder="Search..." name="search" id="search"> 
       </div>
       <button type="submit" ><span class="glyphicon glyphicon-search" style="height:23px;" id="btn"></span></button>
-     </form>
+    </form>
        <ul class="nav navbar-nav navbar-right">
       <li><a id="seller" href="addProduct.html"></a></li>
      <!-- <li><a id="log" href="Login.html"><span class="glyphicon glyphicon-user"></span> Login</a></li> -->
-     <li class="dropdown" id="dd"><a id="log" class="categories" data-toggle="dropdown" href="login.html">Login<span class="caret"></span></a>
+     <li class="dropdown"><a id="log" class="categories" data-toggle="dropdown" href="login.html">Login<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a id="orderhistory" href="orderhistory.html">Orders</a></li>
-          <li><a class="logoo" id="logout" href="login.html">Logout</a></li>
+          <li><a id="logout" href="login.html">Logout</a></li>
          </ul>
       </li>
      
    
       <li><a href="MyCart.html"><span class="glyphicon glyphicon-shopping-cart" style="font-size:18px; color:Steelblue"></span> Cart</a></li>
-           </ul>
+       <li><a href="#"><span class="glyphicon glyphicon-hand-right" style="font-size:18px; color:yellow"></span>  Wishlist</a></li>
+    </ul>
  </div>
 </nav>
 <table id="tbl" >
