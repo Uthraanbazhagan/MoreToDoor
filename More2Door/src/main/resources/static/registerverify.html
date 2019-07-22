@@ -24,13 +24,12 @@ $(function(){
 		evt.preventDefault();
 		if($("#phonenumber").val().length!=10){
 			alert("mobile number has to be 10 characters")
-			var url="/";
-		}
-		if($("#password").val()!=$("#confirmpassword").val()){
+		}//if
+		else if($("#password").val()!=$("#confirmpassword").val()){
 			alert("mismatching password");
-			var url="/";
-		}
-		
+		}//if
+		else
+			{
 		var obj ={
 				firstname : $("#firstname").val(),
 				lastname : $("#lastname").val(),
@@ -56,6 +55,8 @@ $(function(){
          	      	window.location.replace("/login.html");
 }
 		})
+			}
+		
 	})
 })
 </script>

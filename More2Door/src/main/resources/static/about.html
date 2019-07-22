@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Card</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  
+  <style>
+  .container
+  {
+	/* max-width: 350px; */
+	width: 80%;
+	
+	border: 1px solid #ced4da;
+	margin: 3% auto 0;
+	padding: 0px;
+	height: 180%;
+	
+	border-radius: 1rem;
+}
+body{
+    background-image: url("yellow.jpg");
+    background-repeat: no-repeat;
+    background-size: 1366px 768px;
+    background-attachment: fixed;
+	color: black;
+	font-family: 'Roboto', sans-serif;
+}
+.card{
+ 
+
+  background: rgb(0, 0, 0); /* Fallback color */
+  background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+  color: #f1f1f1;
+} 
+.card-deck{}
+  </style>
+</head>
+<body> 
+<nav class="navbar my-navbar">
+ <div class="container-fluid">
+  	<div class="navbar-header">
+      <a class="nav navbar-brand" href="index.html">MORE TO DOOR</a>
+    </div>
+    <ul class="nav navbar-nav">
+      	<li>
+      	<a href="about.html">About Us</a>
+      	</li>
+      	<li class="dropdown"><a class="categories" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a>
+        	<ul class="dropdown-menu">
+          		<li><a href="#">Smart Phones</a></li>
+          		<li><a href="#">Tablets</a></li>
+          		<li><a href="#">Laptops</a></li>
+          		<li><a href="#">Accessories</a></li>
+        	</ul>
+      	</li>
+     </ul>
+      <form class="navbar-form navbar-left" >
+      <div class="form-group">
+        <input type="text" class="form-control"  style="width:450px"placeholder="Search..." name="search" id="search"> 
+      </div>
+      <button type="submit" ><span class="glyphicon glyphicon-search" style="height:23px;" id="btn"></span></button>
+     </form>
+       <ul class="nav navbar-nav navbar-right">
+      <li><a id="seller" href="addProduct.html"></a></li>
+     <!-- <li><a id="log" href="Login.html"><span class="glyphicon glyphicon-user"></span> Login</a></li> -->
+     <li class="dropdown" id="dd"><a id="log" class="categories" data-toggle="dropdown" href="login.html">Login<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a id="orderhistory" href="orderhistory.html">Orders</a></li>
+          <li><a class="logoo" id="logout" href="login.html">Logout</a></li>
+         </ul>
+      </li>
+     
+   
+      <li><a href="MyCart.html"><span class="glyphicon glyphicon-shopping-cart" style="font-size:18px; color:Steelblue"></span> Cart</a></li>
+           </ul>
+ </div>
+</nav>
+  <center><h2>More To Door</h2></center>
+  <div class="container">
+  
+  <div class="card-deck">
+    <div class="card">
+      <div class="card-body text-center">
+        <p class="card-text"><h1>COD</h1><br/>You choose your product, order it online, and 
+        we deliver it right at your doorstep anywhere in India. You just need to pay for the product, 
+        while we ensure free shipping* all the time on almost everything with no strings attached. 
+        For any second thoughts after purchase, we have in place a 15 days return policy.
+        To offer you a safe and risk-free online shopping experience, we offer COD facility. .</p>
+      </div>
+    </div>
+    
+    <div class="card ">
+      <div class="card-body text-center">
+        <p class="card-text"><h1>15 Days Return</h1> <br/>Buy products from us and return it back if  any issues are encountered. 
+        Choose from a wide range of products with shopping around the clock.
+        Free replacements can be requested if the following conditions apply:
+		<ul>
+        <li> Item received is physically damaged;</li>
+		<li>Item received has missing parts or accessories;</li>
+		<li>Item received is different from their description on
+			    the product detail page on More to Door; </li>
+		<li>Item received is defective/does not work properly.</li>
+       </ul>
+       </p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body text-center">
+        <p class="card-text"><h1>Free Shipping**</h1><br/>
+        Buy 5+ products and get free shipping on MoreToDoor .
+         Delivery charge varies with each Seller. The standard delivery charge for products above 15000 is 250 only
+           </p>
+      </div>
+    </div>
+ 
+    </div>  
+  </div>
+
+</body>
+</html>
