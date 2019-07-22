@@ -15,7 +15,7 @@ import com.lti.entity.UserDTO;
 	private EntityManager entityManager;
 
 	public User fetchByEmail(UserDTO userDTO) {
-		MyCartDao dao=new MyCartDao();
+	MyCartDao dao=new MyCartDao();
 	Query q = entityManager.createQuery("select a from User as a where a.email=:em");
 	q.setParameter("em", userDTO.getEmail());
 	User udto=(User)q.getSingleResult();

@@ -7,7 +7,44 @@
 <link rel="stylesheet" href="index.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script>
+  <script>
+  $( document ).ready(function() {
+      if(sessionStorage.getItem("userId")==null){
+          $("log").html("Login");
+          $(document).on("click","#log",function(){
+          	location.replace("login.html");
+     	 	})
+     	 	$("#seller").remove();
+      	$("#orderhistory").remove();
+       	$("#logout").remove();
+    }
+      else{
+      	 var name=sessionStorage.getItem("firstname");
+      	 $("#log").html(name);
+      	 $("#orderhistory").html("Orders");
+      	 $("#logout").html("Logout");
+      	}
+
+  }); // end of after-login
+
+  $(document).on("click","#logout",function(){
+  	sessionStorage.removeItem("firstname");
+  	$("#seller").remove();
+  	 $("log").html("Login");
+       $(document).on("click","#log",function(){
+       	location.replace("login.html");
+  	 	})
+   	$("#orderhistory").remove();
+    	$("#logout").remove();
+  	
+  }) //end of after-logout
+
   
+  </script>
   <style>
   .container
   {
@@ -49,14 +86,14 @@ body{
       	<li>
       	<a href="about.html">About Us</a>
       	</li>
-      	<li class="dropdown"><a class="categories" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a>
-        	<ul class="dropdown-menu">
-          		<li><a href="#">Smart Phones</a></li>
-          		<li><a href="#">Tablets</a></li>
-          		<li><a href="#">Laptops</a></li>
-          		<li><a href="#">Accessories</a></li>
-        	</ul>
-      	</li>
+<!--       	<li class="dropdown"><a class="categories" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a> -->
+<!--         	<ul class="dropdown-menu"> -->
+<!--           		<li><a href="#">Smart Phones</a></li> -->
+<!--           		<li><a href="#">Tablets</a></li> -->
+<!--           		<li><a href="#">Laptops</a></li> -->
+<!--           		<li><a href="#">Accessories</a></li> -->
+<!--         	</ul> -->
+<!--       	</li> -->
      </ul>
       <form class="navbar-form navbar-left" >
       <div class="form-group">
@@ -65,7 +102,7 @@ body{
       <button type="submit" ><span class="glyphicon glyphicon-search" style="height:23px;" id="btn"></span></button>
      </form>
        <ul class="nav navbar-nav navbar-right">
-      <li><a id="seller" href="addProduct.html"></a></li>
+       <li><a id="seller" href="addProduct.html">Seller</a></li>
      <!-- <li><a id="log" href="Login.html"><span class="glyphicon glyphicon-user"></span> Login</a></li> -->
      <li class="dropdown" id="dd"><a id="log" class="categories" data-toggle="dropdown" href="login.html">Login<span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -73,7 +110,7 @@ body{
           <li><a class="logoo" id="logout" href="login.html">Logout</a></li>
          </ul>
       </li>
-     
+
    
       <li><a href="MyCart.html"><span class="glyphicon glyphicon-shopping-cart" style="font-size:18px; color:Steelblue"></span> Cart</a></li>
            </ul>

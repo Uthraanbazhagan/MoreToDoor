@@ -33,7 +33,7 @@ $.ajax({
 		                  	row.append(col2);
 		                    row.append(col3);
 		                    row.append(col4);
-		                	row.append('<button type="button" data-pid="'+products.prodId+'" class="buy">Buy Now</button><br/>');
+		                	row.append('<button type="button" data-pid="'+products.prodId+'" data-price="'+products.prodPrice+'" class="buy">Buy Now</button><br/>');
 		                	row.append('<button type="button" data-pid="'+products.prodId+'" class="cart">To Cart</button><br/>');
 		                	
 	                    $("#tbl").append(row);
@@ -43,7 +43,6 @@ $.ajax({
 			
 		}) //end of ajax
 		$(document).on("click", "button.cart" , function() {
-			alert('added to cart');
 			var userId=sessionStorage.getItem("userId");
 			var prodId = $(this).attr('data-pid');
 			
@@ -51,7 +50,10 @@ $.ajax({
 					prodId:prodId,
 					userId:userId
 			}
-			$.ajax({
+			if(userId){
+				alert('added to cart');
+				
+				$.ajax({
 				url : "/myCartAdd",
 				type:"POST",
 				data:JSON.stringify(obj),
@@ -60,19 +62,41 @@ $.ajax({
 				success : function(response) {
 								
 				}// end of success
-		})  //end of ajax
-		})// end of add to cart function
+		})//end of ajax
+			} //end of if
+			else{
+				alert('you must login to proceed');
+		          window.location.replace("/login.html");
+
+			}
+			})// end of add to cart function
 		$(document).on("click", "button.buy" , function() {
-			window.location.replace("/checkout.html");
-		}) 
+			var userId=sessionStorage.getItem("userId");
+			if(userId){
+          window.location.replace("/checkout.html");
+			}
+			else
+				{
+				alert('you must login to proceed');
+				window.location.replace("/login.html");
+				}
+			}) 
 	
 	}) // end of outer function
 </script>
 
+
 <script>
 $( document ).ready(function() {
     if(sessionStorage.getItem("userId")==null){
-    }
+        $("log").html("Login");
+        $(document).on("click","#log",function(){
+        	location.replace("login.html");
+   	 	})
+   	 	$("#seller").remove();
+    	$("#orderhistory").remove();
+     	$("#logout").remove();
+  }
     else{
     	 var name=sessionStorage.getItem("firstname");
     	 $("#log").html(name);
@@ -84,6 +108,14 @@ $( document ).ready(function() {
 
 $(document).on("click","#logout",function(){
 	sessionStorage.removeItem("firstname");
+	$("#seller").remove();
+	 $("log").html("Login");
+     $(document).on("click","#log",function(){
+     	location.replace("login.html");
+	 	})
+ 	$("#orderhistory").remove();
+  	$("#logout").remove();
+	
 }) //end of after-logout
 
 $(function(){
@@ -114,21 +146,59 @@ $(function(){
 	                	  var col4=$("<td/>").text("$");
 	                	  var price = $("<p/>").text(products.prodPrice);
 						 col4.append(price);
-	                	  var col5=$("<button/>").text("Buy Now");
-	                	  var col6=$("<button/>").text("Add to Cart");
-	                	    row.append(col1);
+						 	  row.append(col1);
 		                    row.append(col2);
 		                    row.append(col3);
 		                    row.append(col4);
-		                    row.append(col5);
-		                    row.append(col6);
-		                    $("#tbl").append(row);
+		                    row.append('<button type="button" data-pid="'+products.prodId+'" data-price="'+products.prodPrice+'" class="buy">Buy Now</button><br/>');
+		                	row.append('<button type="button" data-pid="'+products.prodId+'" class="cart">To Cart</button><br/>');
+		                   $("#tbl").append(row);
 
 				   })//foreach
 					
 			}//success
 			
 		})//ajax
+		$(document).on("click", "button.cart" , function() {
+			var userId=sessionStorage.getItem("userId");
+			var prodId = $(this).attr('data-pid');
+			
+			var obj = {
+					prodId:prodId,
+					userId:userId
+			}
+			if(userId){
+				alert('added to cart');
+				
+				$.ajax({
+				url : "/myCartAdd",
+				type:"POST",
+				data:JSON.stringify(obj),
+				contentType: "application/json; charset=utf-8",
+			    dataType: "json",
+				success : function(response) {
+								
+				}// end of success
+		})//end of ajax
+			} //end of if
+			else{
+				alert('you must login to proceed');
+		          window.location.replace("/login.html");
+
+			}
+			})// end of add to cart function
+		$(document).on("click", "button.buy" , function() {
+			var userId=sessionStorage.getItem("userId");
+			if(userId){
+          window.location.replace("/checkout.html");
+			}
+			else
+				{
+				alert('you must login to proceed');
+				window.location.replace("/login.html");
+				}
+			}) 
+
 	})//end of button
 })//end of func
 
@@ -144,14 +214,14 @@ $(function(){
       	<li>
       	<a href="about.html">About Us</a>
       	</li>
-      	<li class="dropdown"><a class="categories" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a>
-        	<ul class="dropdown-menu">
-          		<li><a href="#">Smart Phones</a></li>
-          		<li><a href="#">Tablets</a></li>
-          		<li><a href="#">Laptops</a></li>
-          		<li><a href="#">Accessories</a></li>
-        	</ul>
-      	</li>
+<!--       	<li class="dropdown"><a class="categories" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a> -->
+<!--         	<ul class="dropdown-menu"> -->
+<!--           		<li><a href="#">Smart Phones</a></li> -->
+<!--           		<li><a href="#">Tablets</a></li> -->
+<!--           		<li><a href="#">Laptops</a></li> -->
+<!--           		<li><a href="#">Accessories</a></li> -->
+<!--         	</ul> -->
+<!--       	</li> -->
      </ul>
       <form class="navbar-form navbar-left" action="/action_page.php">
       <div class="form-group">
@@ -160,7 +230,8 @@ $(function(){
       <button type="submit" ><span class="glyphicon glyphicon-search" style="height:23px;" id="btn"></span></button>
      </form>
        <ul class="nav navbar-nav navbar-right">
-      <li><a id="seller" href="addProduct.html"></a></li>
+     
+      <li><a id="seller" href="addProduct.html">Seller</a></li>
      <!-- <li><a id="log" href="Login.html"><span class="glyphicon glyphicon-user"></span> Login</a></li> -->
      <li class="dropdown" id="dd"><a id="log" class="categories" data-toggle="dropdown" href="login.html">Login<span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -175,7 +246,7 @@ $(function(){
  </div>
 </nav>
 <div class="ad">
-<img src="tv.jpg" style="width:1345px" height="400px">
+<img src="tv2.jpg" style="width:1345px" height="400px">
 </div>
 <table id="tbl" >
 <tr style="border : 1px solid black;">

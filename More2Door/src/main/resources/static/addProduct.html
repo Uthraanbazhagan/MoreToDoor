@@ -4,6 +4,42 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script>
+$( document ).ready(function() {
+    if(sessionStorage.getItem("userId")==null){
+        $("log").html("Login");
+        $(document).on("click","#log",function(){
+        	location.replace("login.html");
+   	 	})
+   	 	$("#seller").remove();
+    	$("#orderhistory").remove();
+     	$("#logout").remove();
+  }
+    else{
+    	 var name=sessionStorage.getItem("firstname");
+    	 $("#log").html(name);
+    	 $("#orderhistory").html("Orders");
+    	 $("#logout").html("Logout");
+    	}
+
+}); // end of after-login
+$(document).on("click","#logout",function(){
+	sessionStorage.removeItem("firstname");
+	$("#seller").remove();
+	 $("log").html("Login");
+     $(document).on("click","#log",function(){
+     	location.replace("login.html");
+	 	})
+ 	$("#orderhistory").remove();
+  	$("#logout").remove();
+	
+})
+</script>
 <script>
 $(function(){
 	$("#form").submit(function(evt){
@@ -42,8 +78,46 @@ $(function(){
 </script>
 </head>
 <body>
+<nav class="navbar my-navbar">
+ <div class="container-fluid">
+  	<div class="navbar-header">
+      <a class="nav navbar-brand" href="index.html">MORE TO DOOR</a>
+    </div>
+    <ul class="nav navbar-nav">
+      	<li>
+      	<a href="about.html">About Us</a>
+      	</li>
+<!--       	<li class="dropdown"><a class="categories" data-toggle="dropdown" href="#">Categories<span class="caret"></span></a> -->
+<!--         	<ul class="dropdown-menu"> -->
+<!--           		<li><a href="#">Smart Phones</a></li> -->
+<!--           		<li><a href="#">Tablets</a></li> -->
+<!--           		<li><a href="#">Laptops</a></li> -->
+<!--           		<li><a href="#">Accessories</a></li> -->
+<!--         	</ul> -->
+<!--       	</li> -->
+     </ul>
+      <form class="navbar-form navbar-left" action="/action_page.php">
+      <div class="form-group">
+        <input type="text" class="form-control"  style="width:450px"placeholder="Search..." name="search" id="search"> 
+      </div>
+      <button type="submit" ><span class="glyphicon glyphicon-search" style="height:23px;" id="btn"></span></button>
+     </form>
+       <ul class="nav navbar-nav navbar-right">
+      <!-- <li><a id="log" href="Login.html"><span class="glyphicon glyphicon-user"></span> Login</a></li> -->
+     <li class="dropdown" id="dd"><a id="log" class="categories" data-toggle="dropdown" href="login.html">Login<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a id="orderhistory" href="orderhistory.html">Orders</a></li>
+          <li><a class="logoo" id="logout" href="login.html">Logout</a></li>
+         </ul>
+      </li>
+     
+   
+      <li><a href="MyCart.html"><span class="glyphicon glyphicon-shopping-cart" style="font-size:18px; color:Steelblue"></span> Cart</a></li>
+           </ul>
+ </div>
+</nav>
 Enter details about the Product:
-<form id="form" >
+<form id="form">
 Brand: <input type="text" name="prodBrand" id="prodBrand" /><br/>
 Description: <input type="textarea" name="prodDesc" id="prodDesc"/><br/>
 Quantity:<input type="number" name="prodQty" id="prodQty" /><br />

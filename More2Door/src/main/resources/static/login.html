@@ -25,9 +25,8 @@ $(function(){
                 data : JSON.stringify(obj),
                 contentType : 'application/json',
                 success : function(response) {
-                	
-                	var email= response.email;
-                   if(email){
+                   	var email= response.email;
+              	     if(email){
                 	sessionStorage.setItem("userId",response.userId);
             	   sessionStorage.setItem("firstname",response.firstname);
             	   sessionStorage.setItem("role",response.role);
